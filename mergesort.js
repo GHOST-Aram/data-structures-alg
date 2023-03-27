@@ -1,15 +1,10 @@
-function mergersort(list){
+export default function mergersort(list){
     
     let length = list.length
     
         if(length <= 1)
-            return list
-    
-    //Midpoint
-    if(length % 2 !== 0)
-    length = length + 1
-    
-    let midpoint = length/2
+            return list    
+    let midpoint = Math.floor(length/2)
     
     //Sub lists
     let list1 = list.slice(0, midpoint)
@@ -19,7 +14,8 @@ function mergersort(list){
 }
 function merge(list1, list2){
     const result = []
-    let leftIndex = rightIndex = 0
+    let leftIndex = 0
+    let rightIndex = 0
 
     while(leftIndex < list1.length && rightIndex < list2.length) {
         if(list2[rightIndex] <= list1[leftIndex]){
@@ -39,4 +35,4 @@ function merge(list1, list2){
 
     return result
 }
-console.log(mergersort([54,65,32,5,6,4,32,24,0,99,2,98,1,4,2]))
+// console.log(mergersort([54,65,32,5,6,4,32,24,0,99,2,98,1,4,2]))
