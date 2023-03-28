@@ -30,7 +30,7 @@ export default class LinkedList{
     append(value){
 
         //Check if linked list is empty then add node to empty list
-        if(this.isEmpty)
+        if(this.isEmpty())
             this.#addToEmpty(value)
         
         //Otherwise
@@ -144,7 +144,7 @@ export default class LinkedList{
     prepend(value){
         
         //Check if linked list is empty then add node to empty list
-        if(this.isEmpty)
+        if(this.isEmpty())
             this.#addToEmpty(value)
         
         //Otherwise
@@ -184,12 +184,12 @@ export default class LinkedList{
             //Push value into array
             list.push(`(${pointer.value})`)
 
-            //Advance position of pointer node
-            pointer = pointer.next
-
             //Break at the end of the list
             if(pointer.next == null)
-                break
+            break
+            
+            //Advance position of pointer node
+            pointer = pointer.next
         }
 
         //if not found 
@@ -252,4 +252,10 @@ export default class LinkedList{
         this.#length --
     }
 }
+const lst = new  LinkedList()
+lst.append('Sweet')
+lst.append('Love')
+lst.append('is')
+lst.append('Sweetest')
 
+console.log(lst.toString())
