@@ -117,7 +117,7 @@ export default class LinkedList{
     insertAt(value, index){
 
         //Find node before that index
-        const leftNode = this.nodeAt(index - 1)
+        const leftNode = this.nodeAt((index - 1))
         
         //Create new node
         const newNode = new Node(value)
@@ -223,7 +223,7 @@ export default class LinkedList{
             //Break at the end of the list
             if(pointer.next == null)
                 break
-                
+
             //Advance position of pointer node
             pointer = pointer.next
 
@@ -253,17 +253,5 @@ export default class LinkedList{
         this.#length --
     }
 }
-const lst = new  LinkedList()
-lst.append('Sweet')
-lst.append('Love')
-lst.append('is')
-lst.append('Sweetest')
 
-// lst.insertAt(2)
-
-console.log(lst.toString())
-console.log(lst.nodeAt(0))
-console.log(lst.nodeAt(1))
-console.log(lst.nodeAt(2))
-console.log(lst.nodeAt(3))
 
