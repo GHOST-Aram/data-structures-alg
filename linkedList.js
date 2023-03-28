@@ -67,12 +67,12 @@ export default class LinkedList{
                 //If found
                 return true
  
-            //Advance position of pointer node if not found
-            pointer = pointer.next
-
-            //Break at the end of the list
-            if(pointer.next == null)
+                //Break at the end of the list
+                if(pointer.next == null)
                 break
+                
+                //Advance position of pointer node if not found
+                pointer = pointer.next
         }
 
         //if not found 
@@ -101,12 +101,12 @@ export default class LinkedList{
             //increment pointer index
             pointerIndex ++
 
-            //Advance position of pointer node
-            pointer = pointer.next
-
             //Break at the end of the list
             if(pointer.next == null)
-                break
+            break
+            
+            //Advance position of pointer node
+            pointer = pointer.next
         }
 
         //Not found? 
@@ -220,12 +220,13 @@ export default class LinkedList{
             //increment pointer index
             pointerIndex ++
 
-            //Advance position of pointer node
-            pointer = pointer.next
-
             //Break at the end of the list
             if(pointer.next == null)
                 break
+                
+            //Advance position of pointer node
+            pointer = pointer.next
+
         }
 
     }
@@ -258,4 +259,11 @@ lst.append('Love')
 lst.append('is')
 lst.append('Sweetest')
 
+// lst.insertAt(2)
+
 console.log(lst.toString())
+console.log(lst.nodeAt(0))
+console.log(lst.nodeAt(1))
+console.log(lst.nodeAt(2))
+console.log(lst.nodeAt(3))
+
