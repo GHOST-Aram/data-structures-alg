@@ -31,13 +31,14 @@ export default class Tree{
 
     //Contains?
     contains(value){
-        //Check if value
+        //Check if value in parent node
         if(this !== null && this.value === value){
             return true
         }
-        //Root node
+        //If nt found in parent node and child nodes are null
         else if(this.left === null && this.right === null)
             return false
+
         else{
             //Recursively check right and left
             this.left.contains(value)
@@ -46,11 +47,16 @@ export default class Tree{
     }
 
     find(value){
+        //Check in current node
         if(this.value === value)
             return this
+        
+        //If not found in both left and right nodes and there are no more nodes
         else if (this.left === null && this.right === null){
             return
         }
+
+        //Keep looking left and right
         else{
             this.left.find(value)
             this.right.find(value)
@@ -91,6 +97,49 @@ export default class Tree{
         return this.root === null
     }
 
+
+    levelOrder(callback){
+        //Break if tree is empty
+        if(this.isEmpty())
+            return
+        
+        //Look left 
+        if(this.left === null)
+            return this.left.value
+            
+        //Look right
+        if(this.right === null)
+            return this.right.value
+        
+        //Push values into array
+        const array = [this.root.value].push(this.levelOrder)
+        
+        //Break if all values have been added inot the array
+        if(array.left === this.size()){
+
+            //If no fundtion is provided as argument
+            if(callback === undefined)
+                return array
+                
+            //Otherwise Do something with callback
+            else 
+                callback(array)  
+        }
+    }
+    //Pretty print
+    prettyPrint(prefix = '', isLeft = true){
+        if (this === null) {
+            return;
+        }
+        if (this.right !== null) {
+            prettyPrint(this.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+        }
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${this.data}`);
+        if (this.left !== null) {
+            prettyPrint(this.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+        }
+            
+    }
     //Number of nodes in the tree
     size(){
         return this.size
