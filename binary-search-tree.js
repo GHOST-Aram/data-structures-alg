@@ -1,3 +1,4 @@
+import quicksort from './quicksort.js'
 export class Node{
     constructor(value){
         this.left = null
@@ -63,6 +64,55 @@ export default class Tree{
         }
     }
 
+    //get depth of a node: From the given node to the root
+    getDepth(node){
+
+        let depth = 0
+
+        leftNode = node.left
+        rightNode = node.right
+
+        while(node.left || node.right){
+            depth++
+            if(this.value === node.value)
+                break
+            leftNode = leftNode.left
+            rightNode = rightNode.right
+
+        }
+        return depth
+    }
+
+    //getHeight: the number of edges in the path from a given node to the a leaf node.
+    getHeight(node){
+        let leftHeight = 0
+        let rightHeight = 0
+
+        let leftNode = node.left
+        let rightNode = node.right
+
+        while(leftNode || rightNode){
+
+            if(leftNode){
+                //Increment heigth
+                leftHeight ++
+
+                //Advance left node
+                leftNode = leftNode.left 
+            }
+            
+            if(rightNode){
+                //Increment heigth
+                rightHeight++
+
+                //Advance rigth node
+                rightNode = rightNode.right
+            }
+
+        }
+        return Math.max(leftHeight,rightHeight)
+    }
+
     //Traverse tree inorder
     inorder(callback){
         //Do nothing if tree is empty
@@ -119,6 +169,9 @@ export default class Tree{
             this.right.insert(value)
     }
 
+    isBalanced(){
+        return Math.abs(this.getHeight(this.root.left)  -  this.getHeight(this.root.right)) <= 1
+    }
     //Check if tree is empty
     isEmpty(){
         return this.root === null
@@ -218,8 +271,32 @@ export default class Tree{
         }
             
     }
+
+    //Rebalance
+    rebalance(){
+        //Get values
+        this.buildTree(quicksort(this.inorder()))
+        
+    }
+
+    //Remove node
+    remove(node){
+        if(!this.contains(node.value)){
+            return false
+        }
+        // Obliterate value if its leaf
+        if(this.value === node.value){
+            node = null
+            return true
+        }
+
+
+        
+    }
     //Number of nodes in the tree
     size(){
         return this.size
     }
 }
+
+
