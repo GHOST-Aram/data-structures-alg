@@ -40,8 +40,8 @@ export default class Tree{
             return false
         else{
             //Recursively check right and left
-            this.contains(this.left, value)
-            this.contains(this.right, value)
+            this.left.contains(value)
+            this.right.contains(value)
         }
     }
 
@@ -57,21 +57,21 @@ export default class Tree{
         }
     }
     //Insert
-    insert(tree,value){
-        //If value is already present in the tree, do nothing and return false
-        if(this.contains(tree, value))
+    insert(value){
+        //If value is already present in the this, do nothing and return false
+        if(this.contains(value))
             return false
             
         //Create new node
         const node = new Node(value)
 
-        //Tree has no node
-        if(tree === null){
-            tree = node
+        //this has no node
+        if(this === null){
+            this = node
 
-            // If tree is epmty
+            // If this is epmty
             if(this.isEmpty())
-                this.root = tree
+                this.root = this
 
             //Increment size
             this.size ++
@@ -79,11 +79,11 @@ export default class Tree{
         }
 
         //Check left
-        if(tree.value < value)
-            this.insert(tree.left, value)
+        if(this.value < value)
+            this.left.insert(value)
         
         else //Insert right
-            this.insert(tree.right, value)
+            this.right.insert(value)
     }
 
     //Check if tree is empty
