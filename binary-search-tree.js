@@ -84,7 +84,7 @@ export default class Tree{
             if(callback === undefined)
                 return array
             else
-                callback(array)
+                return callback(array)
         }
         
     }
@@ -150,7 +150,7 @@ export default class Tree{
 
             //Otherwise Do something with callback
             else 
-                callback(array)  
+                return callback(array)  
         }
     }
 
@@ -176,7 +176,7 @@ export default class Tree{
             if(callback === undefined)
                 return array
             else
-                callback(array)
+                return callback(array)
         }
     }
 
@@ -201,7 +201,7 @@ export default class Tree{
             if(callback === undefined)
                 return array
             else
-                callback(array)
+                return callback(array)
         }
     }
     //Pretty print
