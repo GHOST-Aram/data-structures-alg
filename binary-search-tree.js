@@ -62,6 +62,32 @@ export default class Tree{
             this.right.find(value)
         }
     }
+
+    //Traverse tree inorder
+    inorder(callback){
+        //Do nothing if tree is empty
+        if(this.isEmpty())
+            return
+        //Look left
+        if(this.left !== null){
+            return this.left.value
+        }
+        //look right
+        if(this.right.value)
+            return this.left.value
+
+        //Push values into array
+        const array = [[this.left.inorder(callback)].push(this.root.value)].push(right.inorder(callback))
+
+        if(this.size() == array.length){
+            //No callback
+            if(callback === undefined)
+                return array
+            else
+                callback(array)
+        }
+        
+    }
     //Insert
     insert(value){
         //If value is already present in the this, do nothing and return false
@@ -71,13 +97,14 @@ export default class Tree{
         //Create new node
         const node = new Node(value)
 
-        //this has no node
+        
+        //tree has no node
         if(this === null){
             this = node
-
-            // If this is epmty
+            
+            // If tree is epmty
             if(this.isEmpty())
-                this.root = this
+                this.root = node
 
             //Increment size
             this.size ++
@@ -112,7 +139,7 @@ export default class Tree{
             return this.right.value
         
         //Push values into array
-        const array = [this.root.value].push(this.levelOrder)
+        const array = [[this.root.value].push(this.left.levelOrder(callback))].push(this.right.levelOrder(callback))
         
         //Break if all values have been added inot the array
         if(array.left === this.size()){
@@ -120,10 +147,61 @@ export default class Tree{
             //If no fundtion is provided as argument
             if(callback === undefined)
                 return array
-                
+
             //Otherwise Do something with callback
             else 
                 callback(array)  
+        }
+    }
+
+
+    // Traverse Postorder
+    postorder(callback){
+        //Do nothing if tree is empty
+        if(this.isEmpty())
+            return
+        //Look left
+        if(this.left !== null){
+            return this.left.value
+        }
+        //look right
+        if(this.right.value)
+            return this.left.value
+
+        //Push values into array
+        const array = [[this.left.inorder(callback)].push(right.inorder(callback))].push(this.root.value)
+
+        if(this.size() == array.length){
+            //No callback
+            if(callback === undefined)
+                return array
+            else
+                callback(array)
+        }
+    }
+
+    //Traverse preoder
+    preorder(callback){
+        //Do nothing if tree is empty
+        if(this.isEmpty())
+            return
+        //Look left
+        if(this.left !== null){
+            return this.left.value
+        }
+        //look right
+        if(this.right.value)
+            return this.left.value
+
+        //Push values into array
+        const array = [[this.root.value].push(this.left.inorder(callback))].push(right.inorder(callback))
+
+        if(this.size() == array.length){
+            //No callback
+            if(callback === undefined)
+                return array
+            else
+                callback(array)
         }
     }
     //Pretty print
