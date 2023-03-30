@@ -30,18 +30,18 @@ export default class Tree{
     }
 
     //Contains?
-    contains(tree, value){
+    contains(value){
         //Check if value
-        if(tree !== null && tree.value === value){
+        if(this !== null && this.value === value){
             return true
         }
         //Root node
-        else if(tree.left === null && tree.right === null)
+        else if(this.left === null && this.right === null)
             return false
         else{
             //Recursively check right and left
-            this.contains(tree.left, value)
-            this.contains(tree.right, value)
+            this.contains(this.left, value)
+            this.contains(this.right, value)
         }
     }
 
