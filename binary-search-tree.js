@@ -11,14 +11,22 @@ export default class Tree{
         this.size = 0
     }
 
-    // Build tree from array
+    // Build tree from array: Array should be sorted withoud duplicates
     buildTree (array) {
-        //Remove duplicates
-        array = [new Set(array)]
+        //Exit if length is equal to size
+        if(this.size === array .length )
+            return
+        
+        //Midpoint
+        let mid = Math.floor( array.length / 2)
+        //Find mid point and insert mid element
+        this.insert(this.root, array[mid])
 
-        //Root node
-        this.root = new Node()
+        //Build left
+        this.buildTree(array.slice(0, mid))
 
+        //Build right
+        this.buildTree(array.slice(mid, array.length))
     }
 
     //Contains?
@@ -37,6 +45,17 @@ export default class Tree{
         }
     }
 
+    find(value){
+        if(this.value === value)
+            return this
+        else if (this.left === null && this.right === null){
+            return
+        }
+        else{
+            this.left.find(value)
+            this.right.find(value)
+        }
+    }
     //Insert
     insert(tree,value){
         //If value is already present in the tree, do nothing and return false
@@ -54,6 +73,8 @@ export default class Tree{
             if(this.isEmpty())
                 this.root = tree
 
+            //Increment size
+            this.size ++
             return true    
         }
 
@@ -64,6 +85,7 @@ export default class Tree{
         else //Insert right
             this.insert(tree.right, value)
     }
+
     //Check if tree is empty
     isEmpty(){
         return this.root === null
