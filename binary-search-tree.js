@@ -153,6 +153,7 @@ export default class Tree{
            if(this.isEmpty()){
                 this.root = node
             }
+            this.size ++
         }
         if(node.value > value){
             node.left = this.insert(node.left, value)
@@ -300,9 +301,8 @@ const tree =new Tree()
 
 tree.insert(tree.root, 50)
 tree.insert(tree.root, 100)
+tree.insert(tree.root, 10)
+tree.insert(tree.root, 27)
 
-console.log(tree.insert(tree.root, 40))
-// // console.log("Tree root", tree.root)
-// // console.log("left node", tree.root.left)
-// // console.log("right node", tree.root.right)
 console.log(tree)
+
