@@ -68,7 +68,7 @@ export default class Tree{
     }
     //get depth of a node: From the given node to the root
     getDepth(node){
-        
+        return Math.floor((Math.log2(this.countNodes(this.root)) + 1) - (Math.log2(this.countNodes(node)) + 1))
     }
 
     //getHeight: the number of edges in the path from a given node to the a leaf node.
@@ -293,8 +293,13 @@ const tree =new Tree()
 const arr = [44,55,66,67,68,69]
 tree.buildTree(arr)
 
-console.log(tree.contains(tree.root, 690906))
+// console.log(tree.contains(tree.root, 690906))
 // console.log(tree.root)
 // tree.print(tree.root)
-console.log(tree.countNodes(tree.root))
-console.log(tree.getSize())
+// console.log(tree.countNodes(tree.root))
+// console.log(tree.getSize())
+const node55 = tree.find(tree.root, 55)
+const depth = tree.getDepth(node55)
+
+console.log(depth)
+tree.prettyPrint(tree.root)
