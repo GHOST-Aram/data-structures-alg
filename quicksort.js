@@ -1,4 +1,4 @@
-function quicksort(list){
+export default function quicksort(list){
     if(list.length <= 1)
         return list
     

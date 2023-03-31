@@ -4,6 +4,7 @@ export class Node{
         this.left = null
         this.value = value
         this.right = null
+        this.parent = null
     }
 }
 export default class Tree{
@@ -13,27 +14,31 @@ export default class Tree{
     }
 
     // Build tree from array: Array should be sorted withoud duplicates
-    buildTree (array) {
+    buildTree (tree, array) {
         //Exit if length is equal to size
-        if(this.size === array .length )
+        if(this.size === array.length )
             return
         
         //Midpoint
         let mid = Math.floor( array.length / 2)
+
         //Find mid point and insert mid element
-        this.insert(this.root, array[mid])
+        this.insert(tree, array[mid])
 
         //Build left
-        this.buildTree(array.slice(0, mid))
+        this.buildTree(tree.left, array.slice(0, mid))
 
         //Build right
-        this.buildTree(array.slice(mid, array.length))
+        this.buildTree(tree.right, array.slice(mid, array.length))
     }
 
     //Contains?
-    contains(value){
+    contains(tree, value){
+        if(tree === null){
+            return false
+        }
         //Check if value in parent node
-        if(this !== null && this.value === value){
+        else if(tree.value === value){
             return true
         }
         //If nt found in parent node and child nodes are null
@@ -42,8 +47,8 @@ export default class Tree{
 
         else{
             //Recursively check right and left
-            this.left.contains(value)
-            this.right.contains(value)
+            this.contains(tree.left, value)
+            this.contains(tree.right, value)
         }
     }
 
@@ -139,34 +144,26 @@ export default class Tree{
         
     }
     //Insert
-    insert(value){
-        //If value is already present in the this, do nothing and return false
-        if(this.contains(value))
-            return false
-            
-        //Create new node
-        const node = new Node(value)
+    insert(node,value){
+        if(node === null){
+            //Create new node
+           node = new Node(value)
 
-        
-        //tree has no node
-        if(this === null){
-            this = node
-            
-            // If tree is epmty
-            if(this.isEmpty())
+           //If node has no node at all
+           if(this.isEmpty()){
                 this.root = node
-
-            //Increment size
-            this.size ++
-            return true    
+            }
         }
-
-        //Check left
-        if(this.value < value)
-            this.left.insert(value)
-        
-        else //Insert right
-            this.right.insert(value)
+        if(node.value > value){
+            node.left = this.insert(node.left, value)
+            
+        }
+        else if(node.value < value){
+            
+            node.right = this.insert(node.right, value)
+        }
+        //Job done
+       return node
     }
 
     isBalanced(){
@@ -299,4 +296,13 @@ export default class Tree{
     }
 }
 
+const tree =new Tree()
 
+tree.insert(tree.root, 50)
+tree.insert(tree.root, 100)
+
+console.log(tree.insert(tree.root, 40))
+// // console.log("Tree root", tree.root)
+// // console.log("left node", tree.root.left)
+// // console.log("right node", tree.root.right)
+console.log(tree.root)
