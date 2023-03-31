@@ -261,15 +261,23 @@ export default class Tree{
             return;
         }
         if (node.right !== null) {
-            prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+            this.prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
         }
         console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
         if (node.left !== null) {
-            prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+            this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
         }
             
     }
 
+    //Print on console inorder
+    print(node){
+        if(node !== null){
+            this.print(node.left)
+            console.log(node.value)
+            this.print(node.right)
+        } 
+    }
     //Rebalance
     rebalance(){
         //Get values
@@ -302,7 +310,11 @@ const tree =new Tree()
 tree.insert(tree.root, 50)
 tree.insert(tree.root, 100)
 tree.insert(tree.root, 10)
-tree.insert(tree.root, 27)
+tree.insert(tree.root, 11)
+tree.insert(tree.root, 880)
+tree.insert(tree.root, 1880)
 
-tree.prettyPrint(tree.root)
 
+// console.log(tree.root.left)
+tree.print(tree.root)
+// 
