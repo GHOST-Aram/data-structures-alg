@@ -256,16 +256,16 @@ export default class Tree{
         }
     }
     //Pretty print
-    prettyPrint(prefix = '', isLeft = true){
-        if (this === null) {
+    prettyPrint(node, prefix = '', isLeft = true){
+        if ( node === null) {
             return;
         }
-        if (this.right !== null) {
-            prettyPrint(this.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+        if (node.right !== null) {
+            prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
         }
-        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${this.data}`);
-        if (this.left !== null) {
-            prettyPrint(this.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
+        if (node.left !== null) {
+            prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
         }
             
     }
@@ -304,5 +304,5 @@ tree.insert(tree.root, 100)
 tree.insert(tree.root, 10)
 tree.insert(tree.root, 27)
 
-console.log(tree)
+tree.prettyPrint(tree.root)
 
