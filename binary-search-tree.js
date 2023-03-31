@@ -14,22 +14,28 @@ export default class Tree{
     }
 
     // Build tree from array: Array should be sorted withoud duplicates
-    buildTree (tree, array) {
-        //Exit if length is equal to size
-        if(this.size === array.length )
+    buildTree (array) {
+        if(array.length === 0)
             return
+        //Exit if length is equal to size
+        else{
+            //Midpoint
+            let mid = Math.floor( array.length / 2)
+            
+            //Find mid point and insert mid element
+            this.insert(this.root, array[mid])
+            
+            //Build left
+            this.buildTree(array.slice(0, mid))
+            
+            //Build right
+            this.buildTree(array.slice(mid, array.length))
+        }
+        if(array.length === 1){
+            this.insert(this.root, array[0])
+                return
+        }
         
-        //Midpoint
-        let mid = Math.floor( array.length / 2)
-
-        //Find mid point and insert mid element
-        this.insert(tree, array[mid])
-
-        //Build left
-        this.buildTree(tree.left, array.slice(0, mid))
-
-        //Build right
-        this.buildTree(tree.right, array.slice(mid, array.length))
     }
 
     //Contains?
@@ -307,14 +313,10 @@ export default class Tree{
 
 const tree =new Tree()
 
-tree.insert(tree.root, 50)
-tree.insert(tree.root, 100)
-tree.insert(tree.root, 10)
-tree.insert(tree.root, 11)
-tree.insert(tree.root, 880)
-tree.insert(tree.root, 1880)
+const arr = [1,3,5,7,90,766,4321,10000]
 
-
+tree.buildTree([])
 // console.log(tree.root.left)
+// tree.insert(tree.root, arr[4])
 tree.print(tree.root)
 // 
