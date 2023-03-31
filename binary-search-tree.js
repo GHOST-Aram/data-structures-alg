@@ -40,22 +40,7 @@ export default class Tree{
 
     //Contains?
     contains(tree, value){
-        if(tree === null){
-            return false
-        }
-        //Check if value in parent node
-        else if(tree.value === value){
-            return true
-        }
-        //If nt found in parent node and child nodes are null
-        else if(this.left === null && this.right === null)
-            return false
-
-        else{
-            //Recursively check right and left
-            this.contains(tree.left, value)
-            this.contains(tree.right, value)
-        }
+        return this.find(tree, value) !== null
     }
 
     find(node, value){
@@ -317,6 +302,6 @@ const tree =new Tree()
 const arr = [44,55,66,67,68,69]
 tree.buildTree(arr)
 
-console.log(tree.find(tree.root, 66))
+console.log(tree.contains(tree.root, 690906))
 // console.log(tree.root)
 // tree.print(tree.root)
