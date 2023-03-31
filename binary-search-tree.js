@@ -61,23 +61,14 @@ export default class Tree{
            return this.find(node.right, value)
     }
 
+    countNodes(node){
+        if(node === null)
+            return 0
+        return this.countNodes(node.left) + this.countNodes(node.right) + 1
+    }
     //get depth of a node: From the given node to the root
     getDepth(node){
-
-        let depth = 0
-
-        leftNode = node.left
-        rightNode = node.right
-
-        while(node.left || node.right){
-            depth++
-            if(this.value === node.value)
-                break
-            leftNode = leftNode.left
-            rightNode = rightNode.right
-
-        }
-        return depth
+        
     }
 
     //getHeight: the number of edges in the path from a given node to the a leaf node.
@@ -292,7 +283,7 @@ export default class Tree{
         
     }
     //Number of nodes in the tree
-    size(){
+    getSize(){
         return this.size
     }
 }
@@ -305,3 +296,5 @@ tree.buildTree(arr)
 console.log(tree.contains(tree.root, 690906))
 // console.log(tree.root)
 // tree.print(tree.root)
+console.log(tree.countNodes(tree.root))
+console.log(tree.getSize())
