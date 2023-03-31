@@ -70,35 +70,10 @@ export default class Tree{
     getDepth(node){
         return Math.floor((Math.log2(this.countNodes(this.root)) + 1) - (Math.log2(this.countNodes(node)) + 1))
     }
-
+    
     //getHeight: the number of edges in the path from a given node to the a leaf node.
     getHeight(node){
-        let leftHeight = 0
-        let rightHeight = 0
-
-        let leftNode = node.left
-        let rightNode = node.right
-
-        while(leftNode || rightNode){
-
-            if(leftNode){
-                //Increment heigth
-                leftHeight ++
-
-                //Advance left node
-                leftNode = leftNode.left 
-            }
-            
-            if(rightNode){
-                //Increment heigth
-                rightHeight++
-
-                //Advance rigth node
-                rightNode = rightNode.right
-            }
-
-        }
-        return Math.max(leftHeight,rightHeight)
+        return Math.floor((Math.log2(this.countNodes(node)) + 1))
     }
 
     //Traverse tree inorder
@@ -298,8 +273,8 @@ tree.buildTree(arr)
 // tree.print(tree.root)
 // console.log(tree.countNodes(tree.root))
 // console.log(tree.getSize())
-const node55 = tree.find(tree.root, 55)
-const depth = tree.getDepth(node55)
+const node55 = tree.find(tree.root, 66)
+const depth = tree.getHeight(tree.root)
 
 console.log(depth)
 tree.prettyPrint(tree.root)
