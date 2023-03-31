@@ -15,6 +15,10 @@ export default class Tree{
 
     // Build tree from array: Array should be sorted withoud duplicates
     buildTree (array) {
+        if(array.length === 1){
+            this.insert(this.root, array[0])
+                return
+        }
         if(array.length === 0)
             return
         //Exit if length is equal to size
@@ -30,10 +34,6 @@ export default class Tree{
             
             //Build right
             this.buildTree(array.slice(mid, array.length))
-        }
-        if(array.length === 1){
-            this.insert(this.root, array[0])
-                return
         }
         
     }
@@ -313,10 +313,8 @@ export default class Tree{
 
 const tree =new Tree()
 
-const arr = [1,3,5,7,90,766,4321,10000]
+const arr = [44,55,66,67,68,69]
+tree.buildTree(arr)
 
-tree.buildTree([])
-// console.log(tree.root.left)
-// tree.insert(tree.root, arr[4])
+// console.log(tree.contains(tree.root, 3))
 tree.print(tree.root)
-// 
