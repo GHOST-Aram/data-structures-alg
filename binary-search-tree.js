@@ -58,21 +58,22 @@ export default class Tree{
         }
     }
 
-    find(value){
-        //Check in current node
-        if(this.value === value)
-            return this
-        
-        //If not found in both left and right nodes and there are no more nodes
-        else if (this.left === null && this.right === null){
-            return
-        }
+    find(node, value){
+        //Not found?
+        if(node === null)
+            return null
 
-        //Keep looking left and right
-        else{
-            this.left.find(value)
-            this.right.find(value)
-        }
+        //Found?
+        else if(node.value === value)
+            return node
+
+        //Look left
+        else if(value < node.value)
+           return this.find(node.left, value)
+
+        //Look right
+        else if(value > node.value)
+           return this.find(node.right, value)
     }
 
     //get depth of a node: From the given node to the root
@@ -316,5 +317,6 @@ const tree =new Tree()
 const arr = [44,55,66,67,68,69]
 tree.buildTree(arr)
 
-// console.log(tree.contains(tree.root, 3))
-tree.print(tree.root)
+console.log(tree.find(tree.root, 66))
+// console.log(tree.root)
+// tree.print(tree.root)
