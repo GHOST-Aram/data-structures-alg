@@ -102,10 +102,10 @@ export default class Tree{
     //Count nodes from a 
     countNodes(node){
         if(node === null)
-            return 0
+        return 0
         return this.countNodes(node.left) + this.countNodes(node.right) + 1
     }
-
+    
     //get depth of a node: From the given node to the root
     getDepth(node){
         return Math.floor((Math.log2(this.countNodes(this.root)) + 1) - (Math.log2(this.countNodes(node)) + 1))
@@ -114,6 +114,25 @@ export default class Tree{
     //getHeight: the number of edges in the path from a given node to the a leaf node.
     getHeight(node){
         return Math.floor((Math.log2(this.countNodes(node)) + 1))
+    }
+
+    //Returns the right most node of current node's left node 
+    #getPredicessor(node){
+        //Right node of current node
+        let rightMost = node.left.right
+
+        while(true){
+            //Iterate until the right most node is a leaf node
+            if(rightMost.right === null)
+                return rightMost
+                
+            //Advance  right most node
+            rightMost = rightMost.right   
+        }
+    }
+    //Number of nodes in the tree
+    getSize(){
+        return this.size
     }
 
     //Traverse tree inorder
@@ -282,24 +301,6 @@ export default class Tree{
         return false        
     }
 
-    //Returns the right most node of current node's left node 
-    #getPredicessor(node){
-        //Right node of current node
-        let rightMost = node.left.right
-
-        while(true){
-            //Iterate until the right most node is a leaf node
-            if(rightMost.right === null)
-                return rightMost
-                
-            //Advance  right most node
-            rightMost = rightMost.right   
-        }
-    }
-    //Number of nodes in the tree
-    getSize(){
-        return this.size
-    }
 }
 
 const tree =new Tree()
