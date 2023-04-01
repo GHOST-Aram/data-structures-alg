@@ -43,6 +43,44 @@ export default class Tree{
         return this.find(tree, value) !== null
     }
 
+    //Delete Node
+    #deleteNode(node){
+        //Case node has 0 children: Set node to null
+        if(node.right === null && node.left === null){
+            const parent = node.parent
+            if(parent.left = node)
+                parent.left = null
+            else
+                parent.right = null
+        }
+        
+        //Node has left child only: Change value of node to value of its left child
+        // Then set left child to null
+        else if (node.left !== null && node.right === null){
+            node.value = node.left.value
+            node.left = null
+        }
+        
+        //Node has right child only: Change the value of current node to the value of its right child
+        // then set its right child to null
+        else if(node.left === null && node.right !== null){
+            node.value = node.right.value
+            node.right = null
+        }
+        
+        //Node has both left and right children:
+        else if(node.left !== null && node.right !==null){
+            //  Get predicessor of the node
+            let predicessor = this.#getPredicessor(node)
+
+            // Set value of current node to the value of its predicessor
+            node.value = predicessor.value
+            
+            // Set the predicessor of current node to null
+            predicessor = null
+        }
+        
+    }
     find(node, value){
         //Not found?
         if(node === null)
@@ -61,11 +99,13 @@ export default class Tree{
            return this.find(node.right, value)
     }
 
+    //Count nodes from a 
     countNodes(node){
         if(node === null)
             return 0
         return this.countNodes(node.left) + this.countNodes(node.right) + 1
     }
+
     //get depth of a node: From the given node to the root
     getDepth(node){
         return Math.floor((Math.log2(this.countNodes(this.root)) + 1) - (Math.log2(this.countNodes(node)) + 1))
@@ -104,16 +144,19 @@ export default class Tree{
            //If node has no node at all
            if(this.isEmpty()){
                 this.root = node
+                this.root.parent = null
             }
+
             this.size ++
         }
         if(node.value > value){
             node.left = this.insert(node.left, value)
+            node.left.parent = node
             
         }
         else if(node.value < value){
-            
             node.right = this.insert(node.right, value)
+            node.right.parent = node
         }
         //Job done
        return node
@@ -143,7 +186,7 @@ export default class Tree{
             //If callback function is provided in the arguments
             if(callback)
                 callback(node.value)
-            // else push value into array
+            // else push value into array if we are not provided with a callback function
             else
                 traversed.push(node.value)
             
@@ -226,19 +269,32 @@ export default class Tree{
         
     }
 
-    //Remove node
-    remove(node){
-        if(!this.contains(node.value)){
-            return false
-        }
-        // Obliterate value if its leaf
-        if(this.value === node.value){
-            node = null
+    //Returns true if node removed, if not is not found in the tree, return false
+    remove(value){
+        //Get node to be removed
+        const node = this.find(this.root,value)
+        if(node){
+            //Delete node
+            this.#deleteNode(node)
             return true
+        } 
+
+        return false        
+    }
+
+    //Returns the right most node of current node's left node 
+    #getPredicessor(node){
+        //Right node of current node
+        let rightMost = node.left.right
+
+        while(true){
+            //Iterate until the right most node is a leaf node
+            if(rightMost.right === null)
+                return rightMost
+                
+            //Advance  right most node
+            rightMost = rightMost.right   
         }
-
-
-        
     }
     //Number of nodes in the tree
     getSize(){
@@ -251,21 +307,24 @@ const tree =new Tree()
 const arr = [44,55,66,67,68,69,90,889]
 tree.buildTree(arr)
 
-// console.log(tree.contains(tree.root, 690906))
-// console.log(tree.root)
-// tree.print(tree.root)
-// console.log(tree.countNodes(tree.root))
-// console.log(tree.getSize())
-const node55 = tree.find(tree.root, 66)
-const depth = tree.getHeight(tree.root)
+// // console.log(tree.contains(tree.root, 690906))
+// // console.log(tree.root)
+// // tree.print(tree.root)
+// // console.log(tree.countNodes(tree.root))
+// // console.log(tree.getSize())
+// const node55 = tree.find(tree.root, 66)
+// const depth = tree.getHeight(tree.root)
 
 // console.log(tree.inorder(tree.root))
 tree.prettyPrint(tree.root)
-console.log()
 
-tree.levelOrder((value) =>{
-    console.log(value)
-})
+const feedBack = tree.remove(44)
+// console.log(tree.root)
+
+// let nodex = tree.find(tree.root, 90)
+// console.log('Parent ', nodex)
+tree.prettyPrint(tree.root)
+
 
 
 
