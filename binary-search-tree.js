@@ -129,32 +129,35 @@ export default class Tree{
 
 
     levelOrder(callback){
-        //Break if tree is empty
-        if(this.isEmpty())
-            return
+        let traversed = []
+
+        let queue = [] //Create an empty queue
+        queue.push(this.root) //Enqueue the root node
+
         
-        //Look left 
-        if(this.left === null)
-            return this.left.value
+
+        while(queue.length > 0 ){
+            //Dequeue and get node
+            let node = queue.shift()
             
-        //Look right
-        if(this.right === null)
-            return this.right.value
-        
-        //Push values into array
-        const array = [[this.root.value].push(this.left.levelOrder(callback))].push(this.right.levelOrder(callback))
-        
-        //Break if all values have been added inot the array
-        if(array.left === this.size()){
-
-            //If no fundtion is provided as argument
-            if(callback === undefined)
-                return array
-
-            //Otherwise Do something with callback
-            else 
-                return callback(array)  
+            //If callback function is provided in the arguments
+            if(callback)
+                callback(node.value)
+            // else push value into array
+            else
+                traversed.push(node.value)
+            
+            //If left is not null
+            if(node.left !== null)
+                queue.push(node.left)
+            
+            //If right node is not null
+            if(node.right !== null)
+                queue.push(node.right)
         }
+        //Return array if no callback function was provided
+        if(!callback)
+            return traversed
     }
 
 
@@ -260,7 +263,7 @@ const depth = tree.getHeight(tree.root)
 tree.prettyPrint(tree.root)
 console.log()
 
-tree.preorder(tree.root, (value) =>{
+tree.levelOrder((value) =>{
     console.log(value)
 })
 
