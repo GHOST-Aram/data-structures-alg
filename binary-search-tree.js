@@ -177,28 +177,21 @@ export default class Tree{
     }
 
     //Traverse preoder
-    preorder(callback){
-        //Do nothing if tree is empty
-        if(this.isEmpty())
-            return
-        //Look left
-        if(this.left !== null){
-            return this.left.value
-        }
-        //look right
-        if(this.right.value)
-            return this.left.value
+    preorder(node, callback, traversed = []){
+        if(node !== null){
+            //If callback is not null
+            if(callback)
+                callback(node.value)
+            else {
+                //Return array of values in tree preorder
+                traversed.push(node.value)
+            }
+            this.preorder(node.left, callback, traversed)
 
-        //Push values into array
-        const array = [[this.root.value].push(this.left.inorder(callback))].push(right.inorder(callback))
-
-        if(this.size() == array.length){
-            //No callback
-            if(callback === undefined)
-                return array
-            else
-                return callback(array)
-        }
+            
+            this.preorder(node.right, callback, traversed)
+        } 
+        return traversed
     }
     //Pretty print
     prettyPrint(node, prefix = '', isLeft = true){
@@ -267,7 +260,7 @@ const depth = tree.getHeight(tree.root)
 tree.prettyPrint(tree.root)
 console.log()
 
-tree.postorder(tree.root, (value) =>{
+tree.preorder(tree.root, (value) =>{
     console.log(value)
 })
 
