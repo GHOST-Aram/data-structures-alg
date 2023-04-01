@@ -77,28 +77,22 @@ export default class Tree{
     }
 
     //Traverse tree inorder
-    inorder(callback){
-        //Do nothing if tree is empty
-        if(this.isEmpty())
-            return
-        //Look left
-        if(this.left !== null){
-            return this.left.value
-        }
-        //look right
-        if(this.right.value)
-            return this.left.value
 
-        //Push values into array
-        const array = [[this.left.inorder(callback)].push(this.root.value)].push(right.inorder(callback))
+    inorder(node, callback, traversed = []){
+        if(node !== null){
+            this.inorder(node.left, callback, traversed)
 
-        if(this.size() == array.length){
-            //No callback
-            if(callback === undefined)
-                return array
-            else
-                return callback(array)
-        }
+            //If callback is not null
+            if(callback)
+                callback(node.value)
+            else {
+                //Return array of values in tree inorder
+                traversed.push(node.value)
+            }
+            
+            this.inorder(node.right, callback, traversed)
+        } 
+        return traversed
         
     }
     //Insert
@@ -265,7 +259,7 @@ export default class Tree{
 
 const tree =new Tree()
 
-const arr = [44,55,66,67,68,69]
+const arr = [44,55,66,67,68,69,90,889]
 tree.buildTree(arr)
 
 // console.log(tree.contains(tree.root, 690906))
@@ -276,5 +270,12 @@ tree.buildTree(arr)
 const node55 = tree.find(tree.root, 66)
 const depth = tree.getHeight(tree.root)
 
-console.log(depth)
-tree.prettyPrint(tree.root)
+// console.log(tree.inorder(tree.root))
+// tree.prettyPrint(tree.root)
+console.log()
+tree.inorder(tree.root, (value) =>{
+    console.log(value ** 2)
+})
+
+
+
