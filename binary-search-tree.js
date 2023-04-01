@@ -159,28 +159,21 @@ export default class Tree{
 
 
     // Traverse Postorder
-    postorder(callback){
-        //Do nothing if tree is empty
-        if(this.isEmpty())
-            return
-        //Look left
-        if(this.left !== null){
-            return this.left.value
-        }
-        //look right
-        if(this.right.value)
-            return this.left.value
+    postorder(node, callback, traversed = []){
+        if(node !== null){
+            this.postorder(node.left, callback, traversed)
 
-        //Push values into array
-        const array = [[this.left.inorder(callback)].push(right.inorder(callback))].push(this.root.value)
-
-        if(this.size() == array.length){
-            //No callback
-            if(callback === undefined)
-                return array
-            else
-                return callback(array)
-        }
+            
+            this.postorder(node.right, callback, traversed)
+            //If callback is not null
+            if(callback)
+                callback(node.value)
+            else {
+                //Return array of values in tree postorder
+                traversed.push(node.value)
+            }
+        } 
+        return traversed
     }
 
     //Traverse preoder
@@ -271,10 +264,11 @@ const node55 = tree.find(tree.root, 66)
 const depth = tree.getHeight(tree.root)
 
 // console.log(tree.inorder(tree.root))
-// tree.prettyPrint(tree.root)
+tree.prettyPrint(tree.root)
 console.log()
-tree.inorder(tree.root, (value) =>{
-    console.log(value ** 2)
+
+tree.postorder(tree.root, (value) =>{
+    console.log(value)
 })
 
 
